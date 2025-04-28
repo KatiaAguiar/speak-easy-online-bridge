@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Translate } from "lucide-react";
+import { Languages } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,7 +16,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if URL has signup parameter
     const searchParams = new URLSearchParams(location.search);
     if (searchParams.get("signup") === "true") {
       setActiveTab("signup");
@@ -28,7 +26,6 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       navigate("/dashboard");
@@ -38,7 +35,6 @@ const Login = () => {
   const handleGoogleLogin = () => {
     setIsLoading(true);
     
-    // Simulate API call for Google login
     setTimeout(() => {
       setIsLoading(false);
       navigate("/dashboard");
@@ -53,7 +49,7 @@ const Login = () => {
         <div className="w-full max-w-md space-y-8 bg-background rounded-xl shadow-lg border border-border p-8">
           <div className="text-center">
             <div className="mx-auto h-12 w-12 rounded-full bg-brand-100 flex items-center justify-center">
-              <Translate className="h-6 w-6 text-brand-600" />
+              <Languages className="h-6 w-6 text-brand-600" />
             </div>
             <h1 className="mt-6 text-2xl font-bold">
               {activeTab === "login" ? "Bem-vindo de volta" : "Crie sua conta"}

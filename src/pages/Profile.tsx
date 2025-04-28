@@ -1,10 +1,9 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, MicOff, Settings, Translate, User } from "lucide-react";
+import { Calendar, MicOff, Settings, Languages, User } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -175,7 +174,7 @@ const Profile = () => {
                     <span>Reuniões</span>
                   </TabsTrigger>
                   <TabsTrigger value="vocabulary" className="flex-1">
-                    <Translate className="mr-2 h-4 w-4" />
+                    <Languages className="mr-2 h-4 w-4" />
                     <span>Vocabulário</span>
                   </TabsTrigger>
                 </TabsList>
@@ -397,7 +396,7 @@ const Profile = () => {
                       ) : (
                         <div className="text-center py-12">
                           <div className="mx-auto h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-4">
-                            <Translate className="h-6 w-6 text-muted-foreground" />
+                            <Languages className="h-6 w-6 text-muted-foreground" />
                           </div>
                           <p className="text-muted-foreground">
                             Sem dados de vocabulário disponíveis

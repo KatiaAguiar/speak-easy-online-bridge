@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Translate, Menu, X } from 'lucide-react';
+import { Languages, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <Translate className="h-6 w-6 text-brand-600" />
+          <Languages className="h-6 w-6 text-brand-600" />
           <span className="font-bold text-xl">SpeakEasy</span>
         </Link>
 

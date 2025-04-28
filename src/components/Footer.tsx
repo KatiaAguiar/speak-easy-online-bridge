@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { Translate } from "lucide-react";
+import { Languages } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <Translate className="h-6 w-6 text-brand-600" />
+              <Languages className="h-6 w-6 text-brand-600" />
               <span className="font-bold text-xl">SpeakEasy</span>
             </Link>
             <p className="text-muted-foreground mb-4">

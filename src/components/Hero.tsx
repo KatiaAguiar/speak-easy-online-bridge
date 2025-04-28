@@ -1,7 +1,6 @@
-
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Translate, ArrowRight } from 'lucide-react';
+import { Languages, ArrowRight } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -9,7 +8,7 @@ const Hero = () => {
       <div className="container-custom">
         <div className="flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-100 text-brand-800 mb-8">
-            <Translate className="h-4 w-4" />
+            <Languages className="h-4 w-4" />
             <span className="text-sm font-medium">Tradução em tempo real</span>
           </div>
           
@@ -46,7 +45,7 @@ const Hero = () => {
                 <div className="bg-muted rounded-lg p-4 mb-4 shadow-sm flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="h-10 w-10 rounded-full bg-brand-200 flex items-center justify-center">
-                      <Translate className="h-5 w-5 text-brand-700" />
+                      <Languages className="h-5 w-5 text-brand-700" />
                     </div>
                     <div className="text-left">
                       <h3 className="font-medium">Reunião em andamento</h3>

@@ -1,10 +1,9 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import TranslationInterface from "@/components/TranslationInterface";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
-import { Translate } from "lucide-react";
+import { Languages } from "lucide-react";
 
 const Dashboard = () => {
   // Mock user data (in a real app, this would come from auth context)
@@ -131,7 +130,7 @@ const Dashboard = () => {
                 ) : (
                   <div className="text-center py-8">
                     <div className="mx-auto h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-4">
-                      <Translate className="h-6 w-6 text-muted-foreground" />
+                      <Languages className="h-6 w-6 text-muted-foreground" />
                     </div>
                     <p className="text-muted-foreground">
                       Você ainda não tem reuniões

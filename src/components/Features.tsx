@@ -1,10 +1,10 @@
 
-import { Calendar, MicOff, Translate, User, Volume } from "lucide-react";
+import { Calendar, MicOff, Languages, User, Volume } from "lucide-react";
 
 const Features = () => {
   const featuresList = [
     {
-      icon: <Translate className="h-6 w-6 text-brand-600" />,
+      icon: <Languages className="h-6 w-6 text-brand-600" />,
       title: "Tradução em tempo real",
       description:
         "Conversas são traduzidas instantaneamente enquanto as pessoas falam, permitindo comunicação fluida entre idiomas."
