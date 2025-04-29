@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,12 +9,28 @@ import { Languages } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { auth } from "../firebaseConfig";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup 
+} from "firebase/auth";
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("login");
   const location = useLocation();
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // Login form states
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [signupName, setSignupName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -22,23 +39,70 @@ const Login = () => {
     }
   }, [location]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast({
+        title: "Login bem-sucedido",
+        description: "Você está sendo redirecionado para o dashboard.",
+      });
       navigate("/dashboard");
-    }, 1500);
+    } catch (error: any) {
+      toast({
+        title: "Erro ao fazer login",
+        description: error.message || "Verifique suas credenciais e tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleGoogleLogin = () => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
     
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      toast({
+        title: "Conta criada com sucesso",
+        description: "Você está sendo redirecionado para o dashboard.",
+      });
       navigate("/dashboard");
-    }, 1500);
+    } catch (error: any) {
+      toast({
+        title: "Erro ao criar conta",
+        description: error.message || "Tente novamente com outro e-mail.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      toast({
+        title: "Login com Google bem-sucedido",
+        description: "Você está sendo redirecionado para o dashboard.",
+      });
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast({
+        title: "Erro ao fazer login com Google",
+        description: error.message || "Tente novamente mais tarde.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -73,7 +137,7 @@ const Login = () => {
             </TabsList>
             
             <TabsContent value="login">
-              <form onSubmit={handleSubmit} className="space-y-4 mt-6">
+              <form onSubmit={handleLoginSubmit} className="space-y-4 mt-6">
                 <div className="space-y-2">
                   <Label htmlFor="email">E-mail</Label>
                   <Input
@@ -82,6 +146,8 @@ const Login = () => {
                     placeholder="seu@email.com"
                     required
                     disabled={isLoading}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -100,6 +166,8 @@ const Login = () => {
                     placeholder="••••••••"
                     required
                     disabled={isLoading}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
@@ -109,7 +177,7 @@ const Login = () => {
             </TabsContent>
             
             <TabsContent value="signup">
-              <form onSubmit={handleSubmit} className="space-y-4 mt-6">
+              <form onSubmit={handleSignupSubmit} className="space-y-4 mt-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Nome completo</Label>
                   <Input
@@ -118,6 +186,8 @@ const Login = () => {
                     placeholder="Seu Nome"
                     required
                     disabled={isLoading}
+                    value={signupName}
+                    onChange={(e) => setSignupName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -128,6 +198,8 @@ const Login = () => {
                     placeholder="seu@email.com"
                     required
                     disabled={isLoading}
+                    value={signupEmail}
+                    onChange={(e) => setSignupEmail(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -138,6 +210,8 @@ const Login = () => {
                     placeholder="••••••••"
                     required
                     disabled={isLoading}
+                    value={signupPassword}
+                    onChange={(e) => setSignupPassword(e.target.value)}
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>

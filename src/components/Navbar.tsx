@@ -3,17 +3,35 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Languages, Menu, X } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { auth } from '../firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { useToast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  
-  // Check if user is on dashboard or other authenticated pages
-  const isAuthenticated = location.pathname.includes('/dashboard') || 
-                          location.pathname.includes('/profile');
+  const { currentUser } = useAuth();
+  const { toast } = useToast();
   
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast({
+        title: "Logout realizado",
+        description: "Você foi desconectado com sucesso.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Erro ao fazer logout",
+        description: error.message || "Ocorreu um erro ao desconectar.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <nav className="w-full py-4 bg-background/80 backdrop-blur-lg border-b border-border fixed top-0 z-50">
@@ -26,7 +44,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          {!isAuthenticated && (
+          {!currentUser && (
             <>
               <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
                 Home
@@ -37,7 +55,7 @@ const Navbar = () => {
             </>
           )}
           
-          {isAuthenticated && (
+          {currentUser && (
             <>
               <Link to="/dashboard" className="text-foreground/80 hover:text-foreground transition-colors">
                 Dashboard
@@ -48,7 +66,7 @@ const Navbar = () => {
             </>
           )}
           
-          {!isAuthenticated ? (
+          {!currentUser ? (
             <div className="flex items-center gap-4">
               <Link to="/login">
                 <Button variant="outline">Log in</Button>
@@ -58,9 +76,7 @@ const Navbar = () => {
               </Link>
             </div>
           ) : (
-            <Link to="/">
-              <Button variant="outline">Log Out</Button>
-            </Link>
+            <Button variant="outline" onClick={handleLogout}>Log Out</Button>
           )}
         </div>
 
@@ -82,7 +98,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-background z-50 animate-fade-in">
           <div className="container-custom py-8 flex flex-col gap-6">
-            {!isAuthenticated && (
+            {!currentUser && (
               <>
                 <Link
                   to="/"
@@ -101,7 +117,7 @@ const Navbar = () => {
               </>
             )}
             
-            {isAuthenticated && (
+            {currentUser && (
               <>
                 <Link
                   to="/dashboard"
@@ -120,7 +136,7 @@ const Navbar = () => {
               </>
             )}
             
-            {!isAuthenticated ? (
+            {!currentUser ? (
               <div className="flex flex-col gap-4 mt-4">
                 <Link to="/login" onClick={closeMenu}>
                   <Button variant="outline" className="w-full">
@@ -132,11 +148,16 @@ const Navbar = () => {
                 </Link>
               </div>
             ) : (
-              <Link to="/" onClick={closeMenu}>
-                <Button variant="outline" className="w-full mt-4">
-                  Log Out
-                </Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                className="w-full mt-4" 
+                onClick={() => {
+                  handleLogout();
+                  closeMenu();
+                }}
+              >
+                Log Out
+              </Button>
             )}
           </div>
         </div>
