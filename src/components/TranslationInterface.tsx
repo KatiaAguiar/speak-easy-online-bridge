@@ -98,7 +98,7 @@ const TranslationInterface = () => {
   ];
 
   return (
-    <div className="flex flex-col h-[calc(100vh-10rem)] bg-background border border-border rounded-lg shadow-sm overflow-hidden">
+    <div className="flex flex-col h-full bg-background border-0 rounded-lg overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-border bg-muted/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>

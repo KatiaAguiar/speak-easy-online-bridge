@@ -1,5 +1,8 @@
 
-import { Calendar, MicOff, Languages, User, Volume } from "lucide-react";
+import { Calendar, MicOff, Languages, User, Volume, MonitorSmartphone } from "lucide-react";
+import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import TranslationInterface from "./TranslationInterface";
 
 const Features = () => {
   const featuresList = [
@@ -49,6 +52,26 @@ const Features = () => {
           <p className="subtitle max-w-2xl mx-auto">
             Tudo o que você precisa para participar de reuniões internacionais com confiança, independentemente do idioma
           </p>
+          
+          {/* Popup Demo Button */}
+          <div className="mt-8">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="gap-2">
+                  <MonitorSmartphone className="h-5 w-5" />
+                  Experimentar interface em popup
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl p-0 h-[80vh] max-h-[800px]">
+                <DialogHeader className="p-4 border-b">
+                  <DialogTitle>Interface de Tradução</DialogTitle>
+                </DialogHeader>
+                <div className="p-0 h-full overflow-hidden">
+                  <TranslationInterface />
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
