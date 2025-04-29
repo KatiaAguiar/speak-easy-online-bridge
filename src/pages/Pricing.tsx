@@ -174,11 +174,12 @@ const Pricing = () => {
                     className="block"
                   >
                     <Button
-                      variant={plan.isMostPopular ? "default" : "outline"}
-                      className="w-full"
-                    >
-                      {plan.isEnterprise ? "Fale conosco" : "Iniciar teste grátis"}
-                    </Button>
+  onClick={() => handleCheckout(plan.priceId, plan.isOneTime ? "payment" : "subscription")}
+  variant={plan.isMostPopular ? "default" : "outline"}
+  className="w-full"
+>
+  {plan.isOneTime ? "Comprar agora" : "Iniciar teste grátis"}
+</Button>
                   </Link>
                 </div>
               </div>
