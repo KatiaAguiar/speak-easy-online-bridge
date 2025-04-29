@@ -173,6 +173,11 @@ const Login = () => {
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? "Entrando..." : "Entrar"}
                 </Button>
+                <div className="text-center mt-4">
+                  <Link to="/register" className="text-sm text-brand-600 hover:text-brand-800">
+                    Não tem uma conta? Registre-se
+                  </Link>
+                </div>
               </form>
             </TabsContent>
             
@@ -217,6 +222,11 @@ const Login = () => {
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? "Criando conta..." : "Criar conta"}
                 </Button>
+                <div className="text-center mt-4">
+                  <Link to="/register" className="text-sm text-brand-600 hover:text-brand-800">
+                    Prefere o formulário completo? Registre-se
+                  </Link>
+                </div>
                 <p className="text-xs text-center text-muted-foreground">
                   Ao se cadastrar, você concorda com nossos{" "}
                   <Link to="/" className="text-brand-600 hover:text-brand-800">
